@@ -10,7 +10,7 @@ namespace pps.solid.fmn
         {
             if (numbers == null || numbers.Length == 0)
                 return new List<int>();
-
+            // Remove duplicates and sort the numbers in ascending order
             var uniqueNumbers = numbers.Distinct().OrderBy(x => x).ToArray();
 
             if (uniqueNumbers.Length < 2)
@@ -19,11 +19,13 @@ namespace pps.solid.fmn
             int min = uniqueNumbers.First();
             int max = uniqueNumbers.Last();
 
-            // Calculate expected sum using arithmetic sequence formula
+            // Calculate the expected sum of all numbers in the complete range [min..max]
+            // Formula for sum of arithmetic series: (count * (first + last)) / 2
             int expectedSum = (max - min + 1) * (min + max) / 2;
-            int actualSum = uniqueNumbers.Sum();
+            int actualSum = uniqueNumbers.Sum(); // Calculate the actual sum of the numbers present in the array
 
             // If only one number missing, we can find it directly
+            // difference between expected and actual sums = missing number
             if (uniqueNumbers.Length == max - min)
             {
                 return new List<int> { expectedSum - actualSum };
@@ -38,7 +40,7 @@ namespace pps.solid.fmn
                     missing.Add(i);
             }
 
-            return missing;
+            return missing; // Return all missing numbers in the range
         }
     }
 }
